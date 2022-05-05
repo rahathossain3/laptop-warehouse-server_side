@@ -14,8 +14,8 @@ app.use(express.json());
 
 //mongodb
 
-username: warehouse1
-password: FOB6Ql2uJTfpp87R
+// username: warehouse1
+// password: FOB6Ql2uJTfpp87R
 
 
 
@@ -26,6 +26,12 @@ async function run() {
     try {
         await client.connect();
         const itemCollection = client.db('laptopwarehouse').collection('item');
+
+
+        app.get('/item', (req, res) => {
+            res.send('form mongodb');
+        });
+
 
     }
     finally {
