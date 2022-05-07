@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const port = process.env.PORT || 5000;
 //for dotenv
 require('dotenv').config();
@@ -28,9 +28,27 @@ async function run() {
         const itemCollection = client.db('laptopwarehouse').collection('item');
 
 
-        app.get('/item', (req, res) => {
-            res.send('form mongodb');
+        // get all items
+        app.get('/item', async (req, res) => {
+
+            const query = {};
+            const cursor = itemCollection.find(query);
+            const items = await cursor.toArray();
+
+            res.send(items);
+
         });
+
+
+        // get single item 
+        app.get('/item/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const item = await itemCollection.findOne(query);
+            res.send(item);
+        })
+
+
 
 
     }
@@ -42,11 +60,6 @@ async function run() {
 
 run().catch(console.dir);
 
-// client.connect(err => {
-//     const collection = client.db("test").collection("devices");
-//     // perform actions on the collection object
-
-// });
 
 
 
