@@ -49,6 +49,15 @@ async function run() {
         })
 
 
+        //add item from client
+
+        app.post('/item', async (req, res) => {
+            const newItem = req.body;
+            const result = await itemCollection.insertOne(newItem);
+            res.send(result);
+        })
+
+
 
         //delete service
 
