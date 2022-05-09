@@ -28,43 +28,49 @@ async function run() {
         const itemCollection = client.db('laptopwarehouse').collection('item');
 
 
-        // get all items
+        /*  // get all items
+         app.get('/item', async (req, res) => {
+ 
+             const query = {};
+             const cursor = itemCollection.find(query);
+             const items = await cursor.toArray();
+ 
+             res.send(items);
+ 
+         }); */
+
+
+        // get user wise data
         app.get('/item', async (req, res) => {
+            // get user wise data
 
-            const query = {};
-            const cursor = itemCollection.find(query);
-            const items = await cursor.toArray();
+            const email = req.query.email;
 
-            res.send(items);
+            // const query = {};
+            // const cursor = itemCollection.find(query);
 
-        });
+            // console.log('email', email);
 
-        /* 
-               // get user wise data
-                app.get('/item', async (req, res) => {
-                    // get user wise data
-        
-                    const email = req.query.email;
-        
-                    const query = {};
-                    const cursor = itemCollection.find(query);
-        let userEmail = 
-                    // console.log('email', email);
-        
-                    if (email == ) {
-                        const query = { email: email };
-                        const cursor = itemCollection.find(query);
-                        const items = await cursor.toArray();
-                    }
-                    else {
-                        const items = await cursor.toArray();
-                    }
-                    // const items = await cursor.toArray();
-                    res.send(items);
-        
-                    }
-                ) 
-         */
+            if (email == undefined) {
+                const query = {};
+                const cursor = itemCollection.find(query);
+                const items = await cursor.toArray();
+                res.send(items);
+            }
+            else {
+                const query = { email: email };
+                const cursor = itemCollection.find(query);
+                const items = await cursor.toArray();
+                res.send(items);
+
+            }
+            // const cursor = itemCollection.find(query);
+            // const items = await cursor.toArray();
+            // res.send(items);
+
+        }
+        )
+
 
         // get single item 
         app.get('/item/:id', async (req, res) => {
