@@ -14,12 +14,9 @@ app.use(express.json());
 
 //mongodb
 
-// username: warehouse1
-// password: FOB6Ql2uJTfpp87R
 
 
-
-const uri = "mongodb+srv://warehouse1:FOB6Ql2uJTfpp87R@cluster0.3aknj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.3aknj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 async function run() {
